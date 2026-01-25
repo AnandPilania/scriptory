@@ -1,0 +1,8 @@
+node_modules/
+*.log
+dist/
+build/
+public/
+.env
+scriptory/
+!scriptory/.gitkeep
