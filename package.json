@@ -62,5 +62,9 @@
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "url": "https://github.com/anandpilania/scriptory",
+        "type": "lib"
     }
 }
