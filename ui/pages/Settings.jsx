@@ -141,7 +141,7 @@ export default function Settings() {
             <Separator className="my-6" />
 
             <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-500">scriptory v0.0.1</div>
+                <div className="text-sm text-gray-500">scriptory v0.0.2</div>
                 <Button onClick={handleSave} disabled={saving}>
                     {saving ? 'Saving...' : 'Save Settings'}
                 </Button>

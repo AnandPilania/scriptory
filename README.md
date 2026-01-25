@@ -2,7 +2,7 @@
 
 > **Advanced Internal Documentation Platform** with Notion-like Editor, Team Collaboration, and Version Control
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue)
+![Version](https://img.shields.io/badge/version-0.0.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-brightgreen)
 
