@@ -314,7 +314,7 @@ program
     .command('init')
     .description('Initialize a new scriptory project in current directory')
     .option('-t, --template <type>', 'Template type: basic, dev, qa, team', 'basic')
-    .action(async () => {
+    .action(async (options) => {
         await checkAndUpdate();
         const docsDir = path.join(process.cwd(), 'scriptory');
 
