@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { configApi } from '@/services/api'
+import { configApi } from '../services/api'
 
 export function useConfig() {
     const [config, setConfig] = useState({})

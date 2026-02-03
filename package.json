@@ -1,6 +1,6 @@
 {
     "name": "scriptory",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Internal documentation tool with Notion-like editor",
     "main": "lib/server.js",
     "type": "module",
@@ -24,12 +24,7 @@
     "license": "MIT",
     "dependencies": {
         "@radix-ui/react-dialog": "^1.0.5",
-        "@radix-ui/react-dropdown-menu": "^2.0.6",
-        "@radix-ui/react-label": "^2.0.2",
-        "@radix-ui/react-scroll-area": "^1.0.5",
-        "@radix-ui/react-separator": "^1.0.3",
         "@radix-ui/react-slot": "^1.0.2",
-        "@radix-ui/react-tabs": "^1.0.4",
         "axios": "^1.6.2",
         "body-parser": "^1.20.2",
         "chalk": "^5.3.0",
