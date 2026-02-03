@@ -1,6 +1,6 @@
 {
     "name": "scriptory",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Internal documentation tool with Notion-like editor",
     "main": "lib/server.js",
     "type": "module",
