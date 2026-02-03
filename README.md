@@ -74,7 +74,7 @@ iwr -useb https://raw.githubusercontent.com/anandpilania/scriptory/main/scripts/
 
 **Using npm (Global Install):**
 ```bash
-npm install -g @anandpilania/scriptory
+npm install -g scriptory
 ```
 
 **Or clone and build:**
@@ -209,57 +209,6 @@ scriptory comes with pre-built templates:
 - **Meeting Notes** - Structured meeting documentation
 - **Team Guide** - Onboarding and processes
 - **Project Overview** - High-level project information
-
-## 🏗️ Architecture
-
-### Project Structure
-
-```
-scriptory/
-├── bin/
-│   └── scriptory.js          # CLI entry point
-├── lib/
-│   ├── server.js            # Express server
-│   ├── config.js            # Configuration management
-│   └── updater.js           # Auto-update functionality
-├── ui/
-│   ├── components/
-│   │   ├── ui/          # shadcn/ui primitives
-│   │   ├── layout/      # Layout components
-│   │   ├── editor/      # Notion-like editor
-│   │   ├── documents/   # Document management
-│   │   ├── collaboration/ # Comments, mentions
-│   │   └── version-control/ # Version history
-│   ├── pages/           # Route pages
-│   ├── hooks/           # React hooks
-│   ├── services/        # API services
-│   ├── contexts/        # React contexts
-│   └── utils/           # Utilities
-├── public/                  # Built frontend
-├── scripts/
-│   └── install.sh          # Installation script
-├── index.html
-├── vite.config.js
-├── components.json
-└── package.json            # Root package
-```
-
-### Tech Stack
-
-**Backend:**
-- Node.js + Express
-- File-based storage (MDX)
-- Multer (file uploads)
-- Marked (Markdown parsing)
-
-**Frontend:**
-- React 18
-- Vite (build tool)
-- TailwindCSS (styling)
-- shadcn/ui (components)
-- Radix UI (primitives)
-- Lucide React (icons)
-- React Router (routing)
 
 ## 🔧 Development
 
