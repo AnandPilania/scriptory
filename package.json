@@ -1,6 +1,6 @@
 {
     "name": "scriptory",
-    "version": "0.0.2",
+    "version": "0.0.1",
     "description": "Internal documentation tool with Notion-like editor",
     "main": "lib/server.js",
     "type": "module",
@@ -59,9 +59,6 @@
         "postcss": "^8.4.32",
         "tailwindcss": "^3.3.6",
         "vite": "^7.3.1"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
     },
     "repository": {
         "url": "https://github.com/anandpilania/scriptory",
