@@ -9,7 +9,10 @@ import { checkForUpdates, performUpdate } from '../lib/updater.js';
 import { getConfig, setConfig } from '../lib/config.js';
 import { startServer } from '../lib/server.js';
 import { createRequire } from 'module';
+import { exec } from 'child_process';
+import { promisify } from 'util';
 
+const execAsync = promisify(exec);
 const require = createRequire(import.meta.url);
 const packageJson = require('../package.json');
 

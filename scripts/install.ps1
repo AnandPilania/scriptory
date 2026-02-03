@@ -6,7 +6,7 @@ $npmPath = Get-Command npm -ErrorAction SilentlyContinue
 
 if ($npmPath) {
     Write-Host "Installing via npm..." -ForegroundColor Yellow
-    npm install -g @anandpilania/scriptory
+    npm install -g scriptory
 
     Write-Host ""
     Write-Host "✓ scriptory installed successfully!" -ForegroundColor Green

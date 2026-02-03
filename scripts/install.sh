@@ -44,7 +44,7 @@ esac
 
 if command -v npm &> /dev/null; then
   echo "Installing via npm..."
-  npm install -g @anandpilania/scriptory
+  npm install -g scriptory
   echo ""
   echo "✓ scriptory installed successfully!"
   echo ""
