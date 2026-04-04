@@ -1,14 +1,27 @@
-import { Textarea } from '@/components/ui/textarea'
+import { useRef, useEffect } from 'react'
 
 export default function Editor({ value, onChange, placeholder }) {
-  return (
-    <div className="max-w-4xl mx-auto">
-      <Textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="min-h-[600px] font-mono text-sm resize-none"
-      />
-    </div>
-  )
+    const ref = useRef(null)
+
+    // Auto-grow the textarea as the user types
+    useEffect(() => {
+        const el = ref.current
+        if (!el) return
+        el.style.height = 'auto'
+        el.style.height = `${el.scrollHeight}px`
+    }, [value])
+
+    return (
+        <div className="max-w-3xl mx-auto px-2">
+            <textarea
+                ref={ref}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder={placeholder}
+                className="editor-textarea"
+                style={{ minHeight: '70vh' }}
+                spellCheck={false}
+            />
+        </div>
+    )
 }

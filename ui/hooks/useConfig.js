@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { configApi } from '../services/api'
+import { configApi } from '@/services/api'
 
 export function useConfig() {
     const [config, setConfig] = useState({})
@@ -10,31 +10,21 @@ export function useConfig() {
             setLoading(true)
             const response = await configApi.get()
             setConfig(response.data)
-        } catch (error) {
-            console.error('Error fetching config:', error)
+        } catch (err) {
+            console.error('Error fetching config:', err)
         } finally {
             setLoading(false)
         }
     }
 
     const updateConfig = async (data) => {
-        try {
-            const response = await configApi.update(data)
-            setConfig(response.data)
-        } catch (error) {
-            console.error('Error updating config:', error)
-            throw error
-        }
+        const response = await configApi.update(data)
+        setConfig(response.data)
     }
 
     const initProject = async () => {
-        try {
-            await configApi.init()
-            await fetchConfig()
-        } catch (error) {
-            console.error('Error initializing project:', error)
-            throw error
-        }
+        await configApi.init()
+        await fetchConfig()
     }
 
     useEffect(() => {

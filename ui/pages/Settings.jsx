@@ -1,106 +1,114 @@
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect, useContext } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useConfig } from '@/hooks/useConfig'
+import { LayoutContext } from '@/components/layout/MainLayout'
+
+const SHORTCUTS = [
+    { label: 'Save document',   keys: ['⌘', 'S'] },
+    { label: 'Toggle preview',  keys: ['⌘', 'P'] },
+    { label: 'New document',    keys: ['⌘', 'N'] },
+]
 
 export default function Settings() {
-  const { config, updateConfig, loading } = useConfig()
-  const [deeplinkPrefix, setDeeplinkPrefix] = useState('')
-  const [saving, setSaving] = useState(false)
-  const [saved, setSaved] = useState(false)
+    const { config, updateConfig, loading } = useConfig()
+    const { setHeaderMeta } = useContext(LayoutContext)
+    const [deeplinkPrefix, setDeeplinkPrefix] = useState('')
+    const [status, setStatus] = useState(null) // 'saving' | 'saved' | null
 
-  useEffect(() => {
-    if (config.DEEPLINK_PREFIX) {
-      setDeeplinkPrefix(config.DEEPLINK_PREFIX)
+    useEffect(() => {
+        setHeaderMeta({ title: 'Settings', icon: '⚙️', isDirty: false })
+    }, [setHeaderMeta])
+
+    useEffect(() => {
+        if (config.DEEPLINK_PREFIX) setDeeplinkPrefix(config.DEEPLINK_PREFIX)
+    }, [config])
+
+    const handleSave = async () => {
+        try {
+            setStatus('saving')
+            await updateConfig({ ...config, DEEPLINK_PREFIX: deeplinkPrefix })
+            setStatus('saved')
+            setTimeout(() => setStatus(null), 2000)
+        } catch {
+            setStatus(null)
+        }
     }
-  }, [config])
 
-  const handleSave = async () => {
-    try {
-      setSaving(true)
-      await updateConfig({
-        ...config,
-        DEEPLINK_PREFIX: deeplinkPrefix
-      })
-      setSaved(true)
-      setTimeout(() => setSaved(false), 2000)
-    } catch (error) {
-      console.error('Error saving settings:', error)
-    } finally {
-      setSaving(false)
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center h-full">
+                <span className="text-sm text-gray-400">Loading…</span>
+            </div>
+        )
     }
-  }
 
-  if (loading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-gray-500">Loading settings...</div>
-      </div>
+        <div className="max-w-xl mx-auto px-8 py-10">
+            <h1 className="text-xl font-semibold text-gray-800 mb-6">Settings</h1>
+
+            {/* Config */}
+            <section className="bg-white rounded-xl border border-gray-200 p-5 mb-5">
+                <h2 className="text-sm font-semibold text-gray-700 mb-4">Editor</h2>
+
+                <div className="space-y-1.5 mb-5">
+                    <Label htmlFor="deeplink" className="text-xs text-gray-500">Deeplink prefix</Label>
+                    <Input
+                        id="deeplink"
+                        value={deeplinkPrefix}
+                        onChange={(e) => setDeeplinkPrefix(e.target.value)}
+                        placeholder="vscode://file"
+                        className="h-8 text-sm"
+                    />
+                    <p className="text-xs text-gray-400">
+                        Prefix for opening files in your editor.{' '}
+                        <code className="bg-gray-100 px-1 rounded text-xs">vscode://file</code>
+                    </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleSave}
+                        disabled={status === 'saving'}
+                        className="px-4 py-1.5 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 disabled:opacity-50 transition-colors"
+                    >
+                        {status === 'saving' ? 'Saving…' : 'Save'}
+                    </button>
+                    {status === 'saved' && (
+                        <span className="text-xs text-green-600 font-medium">✓ Saved</span>
+                    )}
+                </div>
+            </section>
+
+            {/* Shortcuts */}
+            <section className="bg-white rounded-xl border border-gray-200 p-5 mb-5">
+                <h2 className="text-sm font-semibold text-gray-700 mb-4">Keyboard shortcuts</h2>
+                <div className="space-y-2.5">
+                    {SHORTCUTS.map(({ label, keys }) => (
+                        <div key={label} className="flex items-center justify-between">
+                            <span className="text-sm text-gray-600">{label}</span>
+                            <div className="flex items-center gap-1">
+                                {keys.map((k) => (
+                                    <kbd
+                                        key={k}
+                                        className="text-xs bg-gray-100 border border-gray-200 rounded px-1.5 py-0.5 font-mono"
+                                    >
+                                        {k}
+                                    </kbd>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* About */}
+            <section className="bg-white rounded-xl border border-gray-200 p-5">
+                <h2 className="text-sm font-semibold text-gray-700 mb-1">About</h2>
+                <p className="text-xs text-gray-400">
+                    scriptory — local-first internal documentation with Markdown & MDX support.
+                </p>
+            </section>
+        </div>
     )
-  }
-
-  return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Settings</h1>
-
-      <div className="bg-white rounded-lg border border-gray-200 p-6 space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="deeplink">Deeplink Prefix</Label>
-          <Input
-            id="deeplink"
-            type="text"
-            value={deeplinkPrefix}
-            onChange={(e) => setDeeplinkPrefix(e.target.value)}
-            placeholder="vscode://file"
-          />
-          <p className="text-sm text-gray-500">
-            Set a custom prefix for deep linking to code files in your editor.
-            Example: <code className="bg-gray-100 px-2 py-1 rounded">vscode://file</code>
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button onClick={handleSave} disabled={saving}>
-            {saving ? 'Saving...' : 'Save Settings'}
-          </Button>
-          {saved && (
-            <span className="text-sm text-green-600">✓ Settings saved!</span>
-          )}
-        </div>
-      </div>
-
-      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-2">About Scriptory</h2>
-        <p className="text-sm text-gray-700 mb-2">
-          Scriptory is an internal documentation tool with a Notion-like editor.
-          Version 0.0.4
-        </p>
-        <div className="space-y-1 text-sm text-gray-600">
-          <p>• 📝 Markdown & MDX support</p>
-          <p>• 📁 File-based storage</p>
-          <p>• 🔍 Code file browsing</p>
-          <p>• ⚡ Fast and local</p>
-        </div>
-      </div>
-
-      <div className="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-3">Keyboard Shortcuts</h2>
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-gray-700">Save Document</span>
-            <code className="bg-gray-200 px-2 py-1 rounded">Ctrl+S / Cmd+S</code>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-700">Toggle Preview</span>
-            <code className="bg-gray-200 px-2 py-1 rounded">Ctrl+P / Cmd+P</code>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-700">New Document</span>
-            <code className="bg-gray-200 px-2 py-1 rounded">Ctrl+N / Cmd+N</code>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
 }

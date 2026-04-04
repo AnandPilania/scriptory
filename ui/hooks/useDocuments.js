@@ -20,47 +20,24 @@ export function useDocuments() {
     }
 
     const createDocument = async (data) => {
-        try {
-            const response = await documentsApi.create(data)
-            setDocuments([...documents, response.data])
-            return response.data
-        } catch (err) {
-            setError(err.message)
-            throw err
-        }
+        const response = await documentsApi.create(data)
+        setDocuments(prev => [...prev, response.data])
+        return response.data
     }
 
     const updateDocument = async (id, data) => {
-        try {
-            await documentsApi.update(id, data)
-            await fetchDocuments()
-        } catch (err) {
-            setError(err.message)
-            throw err
-        }
+        await documentsApi.update(id, data)
+        await fetchDocuments()
     }
 
     const deleteDocument = async (id) => {
-        try {
-            await documentsApi.delete(id)
-            setDocuments(documents.filter(doc => doc.id !== id))
-        } catch (err) {
-            setError(err.message)
-            throw err
-        }
+        await documentsApi.delete(id)
+        setDocuments(prev => prev.filter(doc => doc.id !== id))
     }
 
     useEffect(() => {
         fetchDocuments()
     }, [])
 
-    return {
-        documents,
-        loading,
-        error,
-        fetchDocuments,
-        createDocument,
-        updateDocument,
-        deleteDocument,
-    }
+    return { documents, loading, error, fetchDocuments, createDocument, updateDocument, deleteDocument }
 }

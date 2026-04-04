@@ -1,60 +1,69 @@
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { FileText, Plus, Settings as SettingsIcon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { BookOpen, Plus, Settings as SettingsIcon } from 'lucide-react'
 import { useDocuments } from '@/hooks/useDocuments'
 import DocumentList from '../documents/DocumentList'
 import NewDocumentDialog from '../documents/NewDocumentDialog'
-import { useState } from 'react'
 
 export default function Sidebar({ isOpen }) {
-  const { documents, createDocument, deleteDocument } = useDocuments()
-  const [showNewDialog, setShowNewDialog] = useState(false)
-  const navigate = useNavigate()
+    const { documents, createDocument, deleteDocument } = useDocuments()
+    const [showNewDialog, setShowNewDialog] = useState(false)
+    const navigate = useNavigate()
 
-  const handleCreateDocument = async (data) => {
-    const newDoc = await createDocument(data)
-    setShowNewDialog(false)
-    navigate(`/document/${newDoc.id}`)
-  }
+    const handleCreateDocument = async (data) => {
+        const newDoc = await createDocument(data)
+        setShowNewDialog(false)
+        navigate(`/document/${newDoc.id}`)
+    }
 
-  return (
-    <div className={`${isOpen ? 'w-64' : 'w-0'} bg-white border-r border-gray-200 transition-all duration-300 overflow-hidden flex flex-col`}>
-      <div className="p-4 border-b border-gray-200">
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold text-gray-800">
-          <FileText className="w-6 h-6" />
-          Scriptory
-        </Link>
-      </div>
-
-      <div className="flex-1 overflow-y-auto p-4">
-        <Button
-          onClick={() => setShowNewDialog(true)}
-          className="w-full mb-4"
+    return (
+        <aside
+            className="sidebar flex flex-col overflow-hidden"
+            style={{
+                width: isOpen ? '220px' : '0',
+                minWidth: isOpen ? '220px' : '0',
+                transition: 'width 250ms ease, min-width 250ms ease',
+            }}
         >
-          <Plus className="w-4 h-4 mr-2" />
-          New Document
-        </Button>
+            {/* Logo */}
+            <div className="flex items-center gap-2.5 px-4 py-3.5 border-b" style={{ borderColor: 'var(--sidebar-border)' }}>
+                <BookOpen className="w-4 h-4" style={{ color: '#818cf8' }} />
+                <Link to="/" className="text-sm font-semibold tracking-wide" style={{ color: 'var(--sidebar-fg)' }}>
+                    scriptory
+                </Link>
+            </div>
 
-        <DocumentList
-          documents={documents}
-          onDelete={deleteDocument}
-        />
-      </div>
+            {/* Nav */}
+            <div className="flex-1 overflow-y-auto px-2 py-3">
+                <button
+                    className="sidebar-item w-full mb-1"
+                    onClick={() => setShowNewDialog(true)}
+                >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>New document</span>
+                    <span className="ml-auto text-xs opacity-40">⌘N</span>
+                </button>
 
-      <div className="p-4 border-t border-gray-200">
-        <Link to="/settings">
-          <Button variant="ghost" className="w-full justify-start">
-            <SettingsIcon className="w-4 h-4 mr-2" />
-            Settings
-          </Button>
-        </Link>
-      </div>
+                {documents.length > 0 && (
+                    <div className="sidebar-section-label">Pages</div>
+                )}
 
-      <NewDocumentDialog
-        open={showNewDialog}
-        onOpenChange={setShowNewDialog}
-        onSubmit={handleCreateDocument}
-      />
-    </div>
-  )
+                <DocumentList documents={documents} onDelete={deleteDocument} />
+            </div>
+
+            {/* Footer */}
+            <div className="px-2 py-2 border-t" style={{ borderColor: 'var(--sidebar-border)' }}>
+                <Link to="/settings" className="sidebar-item block">
+                    <SettingsIcon className="w-3.5 h-3.5" />
+                    <span>Settings</span>
+                </Link>
+            </div>
+
+            <NewDocumentDialog
+                open={showNewDialog}
+                onOpenChange={setShowNewDialog}
+                onSubmit={handleCreateDocument}
+            />
+        </aside>
+    )
 }

@@ -1,42 +1,55 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Folder } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { BookOpen, ArrowRight } from 'lucide-react'
 import { useDocuments } from '@/hooks/useDocuments'
 import { useConfig } from '@/hooks/useConfig'
+import { LayoutContext } from '@/components/layout/MainLayout'
 
 export default function Home() {
-  const { documents } = useDocuments()
-  const { config, initProject } = useConfig()
-  const navigate = useNavigate()
+    const { documents } = useDocuments()
+    const { config, initProject } = useConfig()
+    const { setHeaderMeta } = useContext(LayoutContext)
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    // If there are documents, redirect to the first one
-    if (documents.length > 0) {
-      navigate(`/document/${documents[0].id}`)
+    // Clear header meta on home page
+    useEffect(() => {
+        setHeaderMeta({ title: '', icon: '', isDirty: false })
+    }, [setHeaderMeta])
+
+    useEffect(() => {
+        if (documents.length > 0) {
+            navigate(`/document/${documents[0].id}`)
+        }
+    }, [documents, navigate])
+
+    const handleInit = async () => {
+        try {
+            await initProject()
+            window.location.reload()
+        } catch (err) {
+            console.error('Init failed:', err)
+        }
     }
-  }, [documents, navigate])
 
-  const handleInit = async () => {
-    try {
-      await initProject()
-      window.location.reload()
-    } catch (error) {
-      console.error('Error initializing project:', error)
-    }
-  }
+    return (
+        <div className="flex flex-col items-center justify-center h-full bg-white text-center px-8">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center mb-5">
+                <BookOpen className="w-6 h-6 text-indigo-400" />
+            </div>
+            <h1 className="text-xl font-semibold text-gray-800 mb-2">Welcome to scriptory</h1>
+            <p className="text-sm text-gray-400 max-w-xs mb-8">
+                A local-first documentation tool. Create a page from the sidebar to get started.
+            </p>
 
-  return (
-    <div className="flex flex-col items-center justify-center h-full text-gray-400 p-8">
-      <Folder className="w-24 h-24 mb-4" />
-      <h1 className="text-2xl font-semibold mb-2">Welcome to Scriptory</h1>
-      <p className="text-lg mb-6">Select a document or create a new one to get started</p>
-
-      {!config.initialized && (
-        <Button onClick={handleInit} size="lg">
-          Initialize Project
-        </Button>
-      )}
-    </div>
-  )
+            {!config.initialized && (
+                <button
+                    onClick={handleInit}
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-600 transition-colors"
+                >
+                    Initialize project
+                    <ArrowRight className="w-4 h-4" />
+                </button>
+            )}
+        </div>
+    )
 }
