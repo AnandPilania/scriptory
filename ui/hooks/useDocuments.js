@@ -1,43 +1,66 @@
-import { useState, useEffect } from 'react'
-import { documentsApi } from '@/services/api'
+import { useState, useEffect } from 'react';
+import { documentsApi } from '../services/api';
 
 export function useDocuments() {
-    const [documents, setDocuments] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+    const [documents, setDocuments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchDocuments = async () => {
         try {
-            setLoading(true)
-            const response = await documentsApi.getAll()
-            setDocuments(response.data)
-            setError(null)
+            setLoading(true);
+            const response = await documentsApi.getAll();
+            setDocuments(response.data);
+            setError(null);
         } catch (err) {
-            setError(err.message)
+            setError(err.message);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     const createDocument = async (data) => {
-        const response = await documentsApi.create(data)
-        setDocuments(prev => [...prev, response.data])
-        return response.data
-    }
+        try {
+            const response = await documentsApi.create(data);
+            setDocuments(prev => [...prev, response.data]);
+            return response.data;
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        }
+    };
 
     const updateDocument = async (id, data) => {
-        await documentsApi.update(id, data)
-        await fetchDocuments()
-    }
+        try {
+            await documentsApi.update(id, data);
+            await fetchDocuments();
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        }
+    };
 
     const deleteDocument = async (id) => {
-        await documentsApi.delete(id)
-        setDocuments(prev => prev.filter(doc => doc.id !== id))
-    }
+        try {
+            await documentsApi.delete(id);
+            setDocuments(prev => prev.filter(doc => doc.id !== id));
+        } catch (err) {
+            setError(err.message);
+            throw err;
+        }
+    };
 
     useEffect(() => {
-        fetchDocuments()
-    }, [])
+        fetchDocuments();
+    }, []);
 
-    return { documents, loading, error, fetchDocuments, createDocument, updateDocument, deleteDocument }
+    return {
+        documents,
+        loading,
+        error,
+        fetchDocuments,
+        createDocument,
+        updateDocument,
+        deleteDocument,
+    };
 }

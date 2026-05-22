@@ -1,7 +1,7 @@
 {
     "name": "scriptory",
-    "version": "0.0.6",
-    "description": "Internal documentation tool with Notion-like editor",
+    "version": "0.1.1",
+    "description": "Internal documentation platform with Notion-like editor, team collaboration, and version control",
     "main": "lib/server.js",
     "type": "module",
     "bin": {
@@ -12,51 +12,62 @@
         "frontend:dev": "vite",
         "frontend:build": "vite build",
         "frontend:preview": "vite preview",
-        "backend:dev": "node bin/scriptory.js --dev --port=6767",
+        "backend:dev": "node --watch bin/scriptory.js --dev --port=6767",
         "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\""
     },
     "keywords": [
         "documentation",
         "cli",
         "markdown",
-        "mdx"
+        "mdx",
+        "notion",
+        "team"
     ],
     "license": "MIT",
     "dependencies": {
-        "@radix-ui/react-dialog": "^1.0.5",
-        "@radix-ui/react-slot": "^1.0.2",
-        "axios": "^1.6.2",
-        "body-parser": "^1.20.2",
+        "@radix-ui/react-dialog": "^1.1.2",
+        "@radix-ui/react-dropdown-menu": "^2.1.2",
+        "@radix-ui/react-popover": "^1.1.2",
+        "@radix-ui/react-scroll-area": "^1.2.0",
+        "@radix-ui/react-slot": "^1.1.0",
+        "@radix-ui/react-toast": "^1.2.2",
+        "@radix-ui/react-tooltip": "^1.1.4",
+        "axios": "^1.7.7",
+        "body-parser": "^1.20.3",
         "chalk": "^5.3.0",
         "class-variance-authority": "^0.7.0",
-        "clsx": "^2.0.0",
-        "cmdk": "^0.2.0",
-        "commander": "^11.0.0",
+        "clsx": "^2.1.1",
+        "cmdk": "^1.0.4",
+        "commander": "^12.1.0",
         "cors": "^2.8.5",
-        "express": "^4.18.2",
-        "highlight.js": "^11.11.1",
-        "lucide-react": "^0.293.0",
-        "marked": "^17.0.1",
-        "multer": "^2.0.2",
-        "open": "^9.1.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-router-dom": "^6.20.0",
-        "tailwind-merge": "^2.1.0",
-        "tailwindcss-animate": "^1.0.7"
+        "express": "^4.21.1",
+        "highlight.js": "^11.10.0",
+        "lucide-react": "^0.460.0",
+        "marked": "^14.1.3",
+        "marked-highlight": "^2.1.4",
+        "multer": "^1.4.5-lts.1",
+        "open": "^10.1.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.27.0",
+        "tailwind-merge": "^2.5.4",
+        "tailwindcss-animate": "^1.0.7",
+        "uuid": "^10.0.0"
     },
     "devDependencies": {
-        "@types/react": "^18.2.43",
-        "@types/react-dom": "^18.2.17",
-        "@vitejs/plugin-react": "^4.2.1",
-        "autoprefixer": "^10.4.16",
-        "concurrently": "^8.2.0",
-        "postcss": "^8.4.32",
-        "tailwindcss": "^3.3.6",
-        "vite": "^7.3.1"
+        "@tailwindcss/postcss": "^4.3.0",
+        "@types/react": "^18.3.12",
+        "@types/react-dom": "^18.3.1",
+        "@vitejs/plugin-react": "^4.3.3",
+        "concurrently": "^9.1.0",
+        "tailwindcss": "^4.3.0",
+        "vite": "^5.4.10"
     },
     "repository": {
         "url": "https://github.com/anandpilania/scriptory",
-        "type": "lib"
+        "type": "git"
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }

@@ -40,7 +40,7 @@ export default function CodeBrowser({ open, onOpenChange, onInsert }) {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Filter files…"
-                        className="w-full pl-7 pr-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+                        className="w-full pl-7 pr-3 py-1.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-hidden focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
                         autoFocus
                     />
                 </div>

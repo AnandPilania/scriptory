@@ -1,39 +1,46 @@
-import { useState, createContext, useContext } from 'react'
-import { Outlet } from 'react-router-dom'
-import Sidebar from './Sidebar'
-import Header from './Header'
-
-// Lets child pages push title + dirty state up to the header
-export const LayoutContext = createContext({
-    setHeaderMeta: () => {},
-})
-
-export function useLayoutMeta(meta) {
-    const { setHeaderMeta } = useContext(LayoutContext)
-    // Call in a useEffect from child pages
-    return setHeaderMeta
-}
+import { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Header from './Header';
+import SearchModal from '../search/SearchModal';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function MainLayout() {
-    const [sidebarOpen, setSidebarOpen] = useState(true)
-    const [headerMeta, setHeaderMeta] = useState({ title: '', icon: '', isDirty: false })
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [searchOpen, setSearchOpen] = useState(false);
+    const { isDark } = useTheme();
+    const navigate = useNavigate();
+
+    // ⌘K global shortcut
+    useEffect(() => {
+        const handler = (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                setSearchOpen(true);
+            }
+            // ⌘N new document — let sidebar handle this
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, []);
 
     return (
-        <LayoutContext.Provider value={{ setHeaderMeta }}>
-            <div className="flex h-screen bg-gray-50 overflow-hidden">
+        <div className={`flex h-screen overflow-hidden ${isDark ? 'dark' : ''}`}>
+            <div className="flex h-full w-full bg-gray-50 dark:bg-gray-950">
                 <Sidebar isOpen={sidebarOpen} />
                 <div className="flex-1 flex flex-col overflow-hidden min-w-0">
                     <Header
                         toggleSidebar={() => setSidebarOpen(o => !o)}
-                        title={headerMeta.title}
-                        icon={headerMeta.icon}
-                        isDirty={headerMeta.isDirty}
+                        onSearch={() => setSearchOpen(true)}
                     />
-                    <main className="flex-1 overflow-y-auto">
+                    <main className="flex-1 overflow-hidden">
                         <Outlet />
                     </main>
                 </div>
             </div>
-        </LayoutContext.Provider>
-    )
+
+            <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+        </div>
+    );
 }
