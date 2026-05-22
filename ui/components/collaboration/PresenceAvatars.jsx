@@ -21,7 +21,7 @@ export const Avatar = forwardRef(({ user, ...props }, ref) => {
         >
             {/* Avatar circle */}
             <div
-                className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ring-2 ring-white shadow-xs select-none cursor-default"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ring-2 ring-white shadow-2xs select-none cursor-default"
                 style={{ background: user.color, color: '#fff' }}
             >
                 {getInitial(user.userName)}

@@ -44,7 +44,7 @@ export default function ShareDialog({ open, onOpenChange, shareInfo, onEnable, o
                             className={`relative w-11 h-6 rounded-full transition-colors ${shareInfo ? 'bg-indigo-500' : 'bg-gray-200'}`}
                         >
                             <motion.div
-                                className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-sm"
+                                className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-xs"
                                 animate={{ x: shareInfo ? 22 : 2 }}
                                 transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                             />

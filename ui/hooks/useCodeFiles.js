@@ -1,26 +1,26 @@
-import { useState } from 'react'
-import { codeFilesApi } from '@/services/api'
+import { useState } from 'react';
+import { codeFilesApi } from '../services/api';
 
 export function useCodeFiles() {
-    const [codeFiles, setCodeFiles] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [codeFiles, setCodeFiles] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const fetchCodeFiles = async () => {
         try {
-            setLoading(true)
-            const response = await codeFilesApi.getAll()
-            setCodeFiles(response.data)
-        } catch (err) {
-            console.error('Error fetching code files:', err)
+            setLoading(true);
+            const res = await codeFilesApi.getAll();
+            setCodeFiles(res.data);
+        } catch (e) {
+            console.error('Error fetching code files:', e);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     const getCodeFileContent = async (filePath) => {
-        const response = await codeFilesApi.getOne(filePath)
-        return response.data.content
-    }
+        const res = await codeFilesApi.getOne(filePath);
+        return res.data.content;
+    };
 
-    return { codeFiles, loading, fetchCodeFiles, getCodeFileContent }
+    return { codeFiles, loading, fetchCodeFiles, getCodeFileContent };
 }

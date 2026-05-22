@@ -1,79 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap')
-layer(base);
-@import 'highlight.js/styles/github-dark.css' layer(base);
-
 @import 'tailwindcss';
 
-@plugin 'tailwindcss-animate';
-
-@custom-variant dark (&:is(.dark *));
-
-@utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
-  }
-  @media (width >= 1400px) {
-    max-width: 1400px;
-  }
-}
-
-@theme {
-  --font-sans: Geist, system-ui, sans-serif;
-  --font-mono: Geist Mono, JetBrains Mono, monospace;
-
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-}
+@config '../tailwind.config.js';
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -96,373 +23,158 @@ layer(base);
 @layer base {
     :root {
         --background: 0 0% 100%;
-        --foreground: 224 71% 4%;
+        --foreground: 222.2 84% 4.9%;
         --card: 0 0% 100%;
-        --card-foreground: 224 71% 4%;
+        --card-foreground: 222.2 84% 4.9%;
         --popover: 0 0% 100%;
-        --popover-foreground: 224 71% 4%;
-        --primary: 245 82% 61%;
-        --primary-foreground: 0 0% 100%;
-        --secondary: 220 14% 96%;
-        --secondary-foreground: 224 71% 4%;
-        --muted: 220 14% 96%;
-        --muted-foreground: 220 9% 46%;
-        --accent: 220 14% 96%;
-        --accent-foreground: 224 71% 4%;
-        --destructive: 0 84% 60%;
-        --destructive-foreground: 0 0% 100%;
-        --border: 220 13% 91%;
-        --input: 220 13% 91%;
-        --ring: 245 82% 61%;
+        --popover-foreground: 222.2 84% 4.9%;
+        --primary: 221.2 83.2% 53.3%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222.2 47.4% 11.2%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215.4 16.3% 46.9%;
+        --accent: 210 40% 96.1%;
+        --accent-foreground: 222.2 47.4% 11.2%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 221.2 83.2% 53.3%;
         --radius: 0.5rem;
-
-        /* ── Sidebar ── */
-        --sidebar-bg: #0d1117;
-        --sidebar-border: #21262d;
-        --sidebar-fg: #cdd9e5;
-        /* Visible light text on dark bg */
-        --sidebar-muted: #768390;
-        --sidebar-hover: rgba(177, 186, 196, 0.1);
-        --sidebar-active-bg: rgba(99, 102, 241, 0.18);
-        --sidebar-active-fg: #a5b4fc;
     }
 
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
+        --primary: 217.2 91.2% 59.8%;
+        --primary-foreground: 222.2 47.4% 11.2%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 224.3 76.3% 48%;
     }
+}
 
-    html,
-    body,
-    #root {
-        height: 100%;
+@layer base {
+    * {
+        @apply border-border;
     }
 
     body {
         @apply bg-background text-foreground;
-        font-family: 'Geist', system-ui, sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
     }
 
-    code,
-    pre,
-    kbd,
-    samp {
-        font-family: 'Geist Mono', monospace;
-    }
-
-    * {
-        @apply border-border;
+    /* Smooth theme transitions - only on interactive elements, not layout shifts */
+    button,
+    a,
+    input,
+    textarea,
+    select {
+        transition-property: background-color, border-color, color, opacity;
+        transition-duration: 150ms;
+        transition-timing-function: ease-in-out;
     }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CSS KEYFRAMES  (used by plain-div components to avoid
-   framer-motion bugs with ref management on unmount)
-═══════════════════════════════════════════════════════════ */
-
-@keyframes fadeSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-6px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* ── Syntax highlighting ────────────────────────────────────────────────── */
+/* Light theme: use github, Dark theme: override with dark colors */
+.dark .hljs {
+    background: #1e2433;
+    color: #c9d1d9;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+.dark .hljs-keyword,
+.dark .hljs-selector-tag {
+    color: #ff7b72;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════════════════════════ */
-
-.sidebar {
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--sidebar-border);
+.dark .hljs-title,
+.dark .hljs-section {
+    color: #d2a8ff;
 }
 
-.sidebar-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 13px;
-    color: var(--sidebar-fg);
-    /* Always visible — was using --sidebar-muted which is too dark */
-    cursor: pointer;
-    text-decoration: none;
-    border: none;
-    background: none;
-    width: 100%;
-    text-align: left;
-    transition: background 100ms ease, color 100ms ease;
-    white-space: nowrap;
+.dark .hljs-string {
+    color: #a5d6ff;
 }
 
-.sidebar-item:hover {
-    background: var(--sidebar-hover);
-    color: #e6edf3;
+.dark .hljs-comment {
+    color: #8b949e;
 }
 
-.sidebar-item.active {
-    background: var(--sidebar-active-bg);
-    color: var(--sidebar-active-fg);
-    font-weight: 500;
+.dark .hljs-number {
+    color: #79c0ff;
 }
 
-.sidebar-section-label {
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--sidebar-muted);
-    padding: 12px 10px 4px;
+.dark .hljs-built_in {
+    color: #ffa657;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   BLOCK EDITOR
-═══════════════════════════════════════════════════════════ */
-
-.block-editor {
-    min-height: 100%;
+.dark .hljs-attr {
+    color: #7ee787;
 }
 
-.block-editor textarea {
-    font-family: inherit;
-    outline: none;
-    border: none;
-    resize: none;
-    background: transparent;
-    overflow: hidden;
-    width: 100%;
+pre code.hljs {
+    @apply block p-4 rounded-lg overflow-x-auto text-sm leading-relaxed;
 }
 
-.block-editor textarea::placeholder {
-    color: #d1d5db;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   MARKDOWN PROSE
-═══════════════════════════════════════════════════════════ */
-
-.prose {
-    color: #1a1a2e;
-    max-width: 72ch;
-    line-height: 1.75;
-}
-
-.prose h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 2rem 0 1rem;
-    color: #0f0f1a;
-    line-height: 1.2;
-}
-
-.prose h2 {
-    font-size: 1.45rem;
-    font-weight: 600;
-    margin: 2rem 0 0.75rem;
-    color: #1a1a2e;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.prose h3 {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin: 1.5rem 0 0.5rem;
-    color: #1a1a2e;
-}
-
-.prose p {
-    margin: 0.875rem 0;
-    color: #374151;
-}
-
-.prose a {
-    color: #6366f1;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.prose ul,
-.prose ol {
-    margin: 0.875rem 0;
-    padding-left: 1.5rem;
-}
-
-.prose li {
-    margin: 0.25rem 0;
-    color: #374151;
-}
-
-.prose ul li {
-    list-style-type: disc;
-}
-
-.prose ol li {
-    list-style-type: decimal;
-}
-
-.prose strong {
-    font-weight: 600;
-    color: #111827;
-}
-
-.prose em {
-    font-style: italic;
-}
-
-.prose blockquote,
-.md-blockquote {
-    border-left: 3px solid #6366f1;
-    margin: 1.25rem 0;
-    padding: 0.5rem 1rem;
-    background: #f5f5ff;
-    border-radius: 0 6px 6px 0;
-    color: #4b5563;
-    font-style: italic;
+/* ── Prose / Markdown preview ─────────────────────────────────────────────── */
+.prose pre {
+    @apply p-0 bg-transparent;
 }
 
 .prose code:not(pre code) {
-    font-family: 'Geist Mono', monospace;
-    font-size: 0.85em;
-    background: #f3f4f6;
-    padding: 0.15em 0.4em;
-    border-radius: 4px;
-    color: #c026d3;
-    border: 1px solid #e5e7eb;
+    @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
+    content: none;
 }
 
 .prose table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1rem 0;
-    font-size: 0.9em;
+    @apply w-full border-collapse;
 }
 
 .prose th {
-    background: #f9fafb;
-    font-weight: 600;
-    padding: 8px 12px;
-    border: 1px solid #e5e7eb;
-    text-align: left;
+    @apply bg-gray-50 dark:bg-gray-800 font-semibold;
 }
 
+.prose th,
 .prose td {
-    padding: 8px 12px;
-    border: 1px solid #e5e7eb;
+    @apply border border-gray-200 dark:border-gray-700 px-3 py-2 text-sm;
 }
 
-.prose hr {
-    border: none;
-    border-top: 1px solid #e5e7eb;
-    margin: 2rem 0;
+/* ── Editor textarea ─────────────────────────────────────────────────────── */
+.editor-textarea {
+    field-sizing: content;
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CODE BLOCKS (from markdown.js renderer)
-═══════════════════════════════════════════════════════════ */
-
-.code-block {
-    margin: 1.25rem 0;
-    border: 1px solid #30363d;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #161b22;
-}
-
-.code-header {
-    display: flex;
-    align-items: center;
-    padding: 6px 14px;
-    background: #21262d;
-    border-bottom: 1px solid #30363d;
-}
-
-.code-lang {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    color: #7d8590;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.prose pre,
-.code-block pre {
-    margin: 0;
-    overflow-x: auto;
-}
-
-.prose pre code,
-.code-block pre code {
-    font-size: 0.83rem;
-    line-height: 1.6;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   TYPING INDICATOR
-═══════════════════════════════════════════════════════════ */
-
-.typing-dot {
-    display: inline-block;
-    animation: typing-bounce 1.4s ease-in-out infinite;
-}
-
-@keyframes typing-bounce {
-
-    0%,
-    60%,
-    100% {
-        transform: translateY(0);
-        opacity: 0.4;
-    }
-
-    30% {
-        transform: translateY(-3px);
-        opacity: 1;
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════
-   SCROLLBAR
-═══════════════════════════════════════════════════════════ */
-
+/* ── Scrollbar styling ─────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+    @apply bg-transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #e5e7eb;
-    border-radius: 3px;
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d1d5db;
-}
-
-.sidebar ::-webkit-scrollbar-thumb {
-    background: #30363d;
+    @apply bg-gray-400 dark:bg-gray-500;
 }
